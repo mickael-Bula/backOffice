@@ -46,7 +46,7 @@ class HomeController extends AbstractController
      /**
       * @IsGranted("ROLE_ADMIN")
       *
-      * @Route("/product/{id}", name="app_product_id", methods={"GET"}, requirements={"id"="\d+"})
+      * @Route("/product/{id}", name="app_product", methods={"GET"}, requirements={"id"="\d+"})
       */
 
      public function product(int $id): Response
@@ -56,28 +56,51 @@ class HomeController extends AbstractController
          return $this->render("home/product.html.twig", compact("product"));
      }
 
-     /**
-      * @IsGranted ("ROLE_ADMIN")
-      *
-      * @Route("/addProduct", name="app_add_product")
-      */
+    /**
+     * @IsGranted ("ROLE_ADMIN")
+     *
+     * @Route("/product/update/{id?}", name="app_update_product", methods={"GET", "POST"}, requirements={"id"="\d+"})
+     */
 
-     public function addProduct(ManagerRegistry $doctrine, Request $request): Response
-     {
-         $product = new Product();
-         $form = $this->createForm(ProductFormType::class, $product);
-         $form->handleRequest($request);
+    public function update(ManagerRegistry $doctrine, Request $request, ?int $id): Response
+    {
+        if ( $id !== null) {
+            $product = $this->productsRepository->find($id);
+            $form_title = "Modifier un produit";
+        } else {
+            $product = new Product();
+            $form_title = "Ajouter un produit";
+        }
 
-         if ($form->isSubmitted() && $form->isValid())
-         {
-             $entityManager = $doctrine->getManager();
-             $entityManager->persist($product);
-             $entityManager->flush();
-         }
+        $form = $this->createForm(ProductFormType::class, $product);
+        $form->handleRequest($request);
 
-         return $this->renderForm("product/product-form.html.twig", [
-             "form_title" => "Ajouter un produit",
-             "form" => $form
-         ]);
-     }
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($product);
+            $entityManager->flush();
+        }
+
+        return $this->renderForm("product/product-form.html.twig", [
+            "form_title" => $form_title,
+            "form" => $form
+        ]);
+    }
+
+    /**
+     * @IsGranted ("ROLE_ADMIN")
+     *
+     * @Route("/product/delete/{id}", name="app_delete_product", methods={"GET", "POST"}, requirements={"id"="\d+"})
+     */
+
+    public function delete(ManagerRegistry $doctrine, int $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $product = $this->productsRepository->find($id);
+        $entityManager->remove($product);
+        $entityManager->flush();
+
+        return $this->redirectToRoute("app_products");
+    }
 }

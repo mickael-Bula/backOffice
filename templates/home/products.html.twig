@@ -26,7 +26,11 @@
                         <td class="text-center">{{ product.reference }}</td>
                         <td class="text-center">{{ product.price }}</td>
                         <td class="text-center">{{ product.isAvailable }}</td>
-                        <a href="{{ path('app_product', {'id': product.id }) }}"><button class="btn btn-primary">éditer</button></a>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('app_update_product', {'id': product.id }) }}">éditer</a>
+                            <a class="btn btn-danger" href="{{ path('app_delete_product', {'id': product.id }) }}">supprimer</a>
+                            {# ajouter une intervention JS (preventDefault) pour s'assurer de la volonté de supprimer le produit #}
+                        </td>
                     </tr>
                 {% endfor %}
 
