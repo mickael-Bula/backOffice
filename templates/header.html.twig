@@ -9,7 +9,7 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="{{ path("app_home") }}">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">produits</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path("app_add_product") }}">Ajouter un produit</a></li>
                     {% if app.user %}
                         <li class="nav-item"><a class="nav-link px-lg-4" href="{{ path("app_logout") }}"><i class="bi bi-person-circle pe-2 p-lg-2 wrap-icon"></i>Se déconnecter</a></li>
                     {% else %}

@@ -4,29 +4,53 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
+ */
 class Product
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    /**
+     * @Assert\NotBlank
+     * @ORM\Column(type="string", length="100")
+     */
     private $name;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    /**
+     * @Assert\NotBlank
+     * @ORM\Column(type="string", length="100")
+     */
     private $reference;
 
-    #[ORM\Column(type: 'boolean')]
+    /**
+     * @Assert\NotBlank
+     * @ORM\Column(type="boolean")
+     */
     private $isAvailable;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    /**
+     * @Assert\NotBlank
+     * @ORM\Column(type="datetime_immutable")
+     */
     private $createdAt;
 
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable="true")
+     */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
 
     public function getId(): ?int
     {
@@ -89,6 +113,18 @@ class Product
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

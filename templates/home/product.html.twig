@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un produit{% endblock %}
+
+{% block body %}
+
+    <section class="py-5 mt-4">
+        <div class="container">
+            <table class="table table-sm table-hover d-none d-sm-table">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">nom</th>
+                    <th scope="col" class="text-center">reference</th>
+                    <th scope="col" class="text-center">prix</th>
+                    <th scope="col" class="text-center">en stock</th>
+                </tr>
+                </thead>
+                    <tr>
+                        <td class="text-center">{{ product.id }}</td>
+                        <td class="text-center">{{ product.name }}</td>
+                        <td class="text-center">{{ product.reference }}</td>
+                        <td class="text-center">{{ product.price }}</td>
+                        <td class="text-center">{{ product.isAvailable }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
