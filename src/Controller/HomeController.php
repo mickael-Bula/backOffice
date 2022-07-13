@@ -43,19 +43,6 @@ class HomeController extends AbstractController
          return $this->render("home/products.html.twig", compact("products"));
      }
 
-     /**
-      * @IsGranted("ROLE_ADMIN")
-      *
-      * @Route("/product/{id}", name="app_product", methods={"GET"}, requirements={"id"="\d+"})
-      */
-
-     public function product(int $id): Response
-     {
-         $product = $this->productsRepository->find($id);
-
-         return $this->render("home/product.html.twig", compact("product"));
-     }
-
     /**
      * @IsGranted ("ROLE_ADMIN")
      *
@@ -85,10 +72,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute("app_products");
         }
 
-        return $this->renderForm("product/product-form.html.twig", [
-            "form_title" => $form_title,
-            "form" => $form
-        ]);
+        return $this->renderForm("product/product-form.html.twig", compact("form_title", "form"));
     }
 
     /**

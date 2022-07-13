@@ -13,10 +13,10 @@
                 <thead>
                 <tr>
                     <th scope="col" class="text-center">#</th>
-                    <th scope="col" class="text-center">nom</th>
-                    <th scope="col" class="text-center">reference</th>
-                    <th scope="col" class="text-center">prix</th>
-                    <th scope="col" class="text-center">en stock</th>
+                    <th scope="col" class="text-center">NOM</th>
+                    <th scope="col" class="text-center">RÉFÉRENCE</th>
+                    <th scope="col" class="text-center">QUANTITÉ</th>
+                    <th scope="col" class="text-center">PRIX</th>
                 </tr>
                 </thead>
                 {% for product in products %}
@@ -24,9 +24,9 @@
                         <td class="text-center">{{ product.id }}</td>
                         <td class="text-center">{{ product.name }}</td>
                         <td class="text-center">{{ product.reference }}</td>
+                        <td class="text-center">{{ product.quantity }}</td>
                         <td class="text-center">{{ product.price }}</td>
-                        <td class="text-center">{{ product.isAvailable }}</td>
-                        <td>
+                        <td class="text-end">
                             <a class="btn btn-warning" href="{{ path('app_update_product', {'id': product.id }) }}">éditer</a>
                             <a class="btn btn-danger" href="{{ path('app_delete_product', {'id': product.id }) }}">supprimer</a>
                             {# ajouter une intervention JS (preventDefault) pour s'assurer de la volonté de supprimer le produit #}

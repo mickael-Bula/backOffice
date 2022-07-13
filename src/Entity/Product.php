@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -144,5 +145,13 @@ class Product
         $this->quantity = $quantity;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }
