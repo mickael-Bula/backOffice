@@ -80,6 +80,9 @@ class HomeController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($product);
             $entityManager->flush();
+
+            // si le formulaire a été soumis on redirige vers la liste des produits
+            return $this->redirectToRoute("app_products");
         }
 
         return $this->renderForm("product/product-form.html.twig", [
