@@ -8,8 +8,8 @@
         <div class="container">
             <div class="p-4 p-lg-5 custom-card custom-card--gradient text-center position-relative">
                 <div class="m-4 m-lg-5">
-                    <h1 class="display-5 fw-bold">Bienvenue !</h1>
                     {% if not app.user %}
+                    <h1 class="display-5 fw-bold">Bienvenue !</h1>
                     <p class="fs-4">Identifiez-vous pour vous connecter à votre back office.</p>
                     <a class="btn btn-primary btn-lg" href="{{ path("app_login") }}">se connecter</a>
                     {% else %}
