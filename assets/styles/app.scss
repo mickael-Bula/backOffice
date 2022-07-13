@@ -34,9 +34,32 @@ body {
 .wrap-icon {
     border-radius: 2em;
     transition: background-color 0.3s;
+
+    &:hover {
+        background-color: darken(#0d6efd, 5%);
+        transition: background-color 0.3s;
+    }
   }
-  
-  .wrap-icon:hover {
-    background-color: darken(#0d6efd, 5%);
-    transition: background-color 0.3s;
-  }
+
+.social-icons {
+    padding-left: 0;
+
+    & li  {
+        display: inline-block;
+        margin: 0 16px;
+    }
+
+    & li a {
+        display: block;
+    }
+
+    & li i {
+        color: #c3c3cb;
+        font-size: 2em;
+        transition: all 0.3s;
+    }
+
+    & li i:hover {
+        transform: scale(1.3);
+    }
+}
