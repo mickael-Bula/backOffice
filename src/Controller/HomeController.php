@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductFormType;
-use Doctrine\ORM\EntityManagerInterface;
+// use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

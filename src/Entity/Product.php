@@ -33,12 +33,6 @@ class Product
 
     /**
      * @Assert\NotBlank
-     * @ORM\Column(type="boolean")
-     */
-    private $isAvailable;
-
-    /**
-     * @Assert\NotBlank
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
@@ -57,6 +51,11 @@ class Product
      * @ORM\Column(type="integer")
      */
     private $quantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -83,18 +82,6 @@ class Product
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
-
-        return $this;
-    }
-
-    public function isIsAvailable(): ?bool
-    {
-        return $this->isAvailable;
-    }
-
-    public function setIsAvailable(bool $isAvailable): self
-    {
-        $this->isAvailable = $isAvailable;
 
         return $this;
     }
@@ -153,5 +140,17 @@ class Product
     public function setUpdatedAtValue(): void
     {
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

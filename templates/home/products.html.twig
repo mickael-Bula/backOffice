@@ -1,5 +1,3 @@
-
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Back Office{% endblock %}
@@ -7,14 +5,15 @@
 {% block body %}
 
     <section class="py-5 mt-4">
-        <div class="container">
+        <div class="container-fluid container-lg">
             {% if products|length > 0 %}
-            <table class="table table-sm table-hover d-none d-sm-table">
+            <table class="table table-sm table-hover table-responsive">
                 <thead>
                 <tr>
                     <th scope="col" class="text-center">#</th>
                     <th scope="col" class="text-center">NOM</th>
                     <th scope="col" class="text-center">RÉFÉRENCE</th>
+                    <th scope="col" class="text-center">CATÉGORIE</th>
                     <th scope="col" class="text-center">QUANTITÉ</th>
                     <th scope="col" class="text-center">PRIX</th>
                 </tr>
@@ -24,11 +23,12 @@
                         <td class="text-center">{{ product.id }}</td>
                         <td class="text-center">{{ product.name }}</td>
                         <td class="text-center">{{ product.reference }}</td>
+                        <td class="text-center">{{ product.category.name }}</td>
                         <td class="text-center">{{ product.quantity }}</td>
                         <td class="text-center">{{ product.price }}</td>
                         <td class="text-end">
-                            <a class="btn btn-warning" href="{{ path('app_update_product', {'id': product.id }) }}">éditer</a>
-                            <a class="btn btn-danger" href="{{ path('app_delete_product', {'id': product.id }) }}">supprimer</a>
+                            <a class="btn btn-warning" href="{{ path('app_update_product', {'id': product.id }) }}"><i class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-danger" href="{{ path('app_delete_product', {'id': product.id }) }}"><i class="bi bi-trash"></i></a>
                             {# ajouter une intervention JS (preventDefault) pour s'assurer de la volonté de supprimer le produit #}
                         </td>
                     </tr>

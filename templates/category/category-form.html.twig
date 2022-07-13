@@ -1,13 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<div class="container-fluid container-lg">
-    <div class="col-6 mx-auto">
-        <h1 class="display-5">{{ form_title }}</h1>
+<div class="container-fluid container-sm">
+    <div class="col-sm-6 mx-auto">
+        <h1 class="display-6 display-5-md mt-4">{{ form_title }}</h1>
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-success">Valider</button>
-        <a href="{{ path("app_products") }}" class="btn btn-warning">Annuler</a>
+        <a href="{{ path("app_categories") }}" class="btn btn-warning">Annuler</a>
         {{ form_end(form) }}
 
     </div>
