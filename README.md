@@ -12,8 +12,6 @@ mail : admin@admin.com
 password : admin
 ```
 
-Un formulaire est disponible pour modifier les identifiants une fois l'application installée.
-
 ## Procédure d'installation
 
 L'application a été construite avec Symfony et Sass pour les styles. J'ai utilisé les services de Webpack Encore pour compiler Sass.
