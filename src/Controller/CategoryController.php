@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
+use App\Entity\{Category, Product};
 use App\Form\CategoryFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\{ Request, Response };
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -37,12 +37,24 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * @Route("/category/{id}", name="app_category_show", requirements={"id"="\d+"})
+     */
+
+    public function show(ManagerRegistry $doctrine, Request $request, ?int $id): Response
+    {
+        $productRepository = $doctrine->getRepository(Product::class);
+        $products = $productRepository->findBy(["category" => $id]);
+
+        return $this->render('home/products.html.twig', compact("products"));
+    }
+
+    /**
      * @Route("/update/{id?}", name="app_update_category", methods={"GET", "POST"}, requirements={"id"="\d+"})
      */
 
     public function update(ManagerRegistry $doctrine, Request $request, ?int $id): Response
     {
-        if ( $id !== null) {
+        if ($id !== null) {
             $category = $this->categoriesRepository->find($id);
             $form_title = "Modifier une catégorie";
         } else {
@@ -53,8 +65,7 @@ class CategoryController extends AbstractController
         $form = $this->createForm(CategoryFormType::class, $category);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $doctrine->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
