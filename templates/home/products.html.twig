@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Back Office
-{% endblock %}
+{% block title %}Back Office{% endblock %}
 
 {% block body %}
 
 	<section class="py-5 mt-4">
 		<div class="container-fluid container-lg">
+        
 			{% if products|length > 0 %}
-				<table class="table table-sm table-hover table-responsive">
+            <h3 class="display-5">{{ title }}</h3>
+				<table class="table table-sm table-hover table-responsive mt-5">
 					<thead>
 						<tr>
 							<th scope="col" class="text-center">#</th>

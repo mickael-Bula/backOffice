@@ -24,6 +24,7 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/", name="app_home")
+     * 
      */
     public function index(): Response
     {
@@ -40,10 +41,14 @@ class HomeController extends AbstractController
          // on transmet à la vue la totalité des produits existants en BDD
          $products = $this->productsRepository->findAll();
 
-         return $this->render("home/products.html.twig", compact("products"));
+         $title = "Liste des produits";
+
+         return $this->render("home/products.html.twig", compact("products", "title"));
      }
 
     /**
+     * Méthode pour mettre à jour ou créer un nouveau produit
+     * 
      * @IsGranted ("ROLE_ADMIN")
      *
      * @Route("/product/update/{id?}", name="app_update_product", methods={"GET", "POST"}, requirements={"id"="\d+"})
@@ -51,9 +56,11 @@ class HomeController extends AbstractController
 
     public function update(ManagerRegistry $doctrine, Request $request, ?int $id): Response
     {
+        // si l'id est présent, on récupère le produit...
         if ( $id !== null) {
             $product = $this->productsRepository->find($id);
             $form_title = "Modifier un produit";
+            // ...sinon on en crée un nouveau
         } else {
             $product = new Product();
             $form_title = "Ajouter un produit";
@@ -76,6 +83,8 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Méthode pour supprimer un produit
+     * 
      * @IsGranted ("ROLE_ADMIN")
      *
      * @Route("/product/delete/{id}", name="app_delete_product", methods={"GET", "POST"}, requirements={"id"="\d+"})

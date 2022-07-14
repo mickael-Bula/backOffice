@@ -33,7 +33,9 @@ class CategoryController extends AbstractController
         // on transmet à la vue les catégories
         $categories = $this->categoriesRepository->findAll();
 
-        return $this->render('category/categories.html.twig', compact("categories"));
+        $title = "Liste des catégories";
+
+        return $this->render('category/categories.html.twig', compact("categories", "title"));
     }
 
     /**
@@ -42,21 +44,30 @@ class CategoryController extends AbstractController
 
     public function show(ManagerRegistry $doctrine, Request $request, ?int $id): Response
     {
+        // récupération du nom de la catégorie courante
+        $category = $this->categoriesRepository->find($id);
+        $title = "Produits de la catégorie {$category->getName()}";
+
+        // récupération des produits de la catégorie courante
         $productRepository = $doctrine->getRepository(Product::class);
         $products = $productRepository->findBy(["category" => $id]);
 
-        return $this->render('home/products.html.twig', compact("products"));
+        return $this->render('home/products.html.twig', compact("products", "title"));
     }
 
     /**
+     * Méthode utilisée à la fois pour la création et la mise à jour d'une catégorie
+     * 
      * @Route("/update/{id?}", name="app_update_category", methods={"GET", "POST"}, requirements={"id"="\d+"})
      */
 
     public function update(ManagerRegistry $doctrine, Request $request, ?int $id): Response
     {
+        // si l'id est présent, on récupère la catégorie...
         if ($id !== null) {
             $category = $this->categoriesRepository->find($id);
             $form_title = "Modifier une catégorie";
+            // ...sinon on en crée une nouvelle
         } else {
             $category = new Category();
             $form_title = "Ajouter une catégorie";
@@ -78,6 +89,8 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * Méthode pour supprimer une catégorie
+     * 
      * @Route("/delete/{id}", name="app_delete_category", methods={"GET", "POST"}, requirements={"id"="\d+"})
      */
 
