@@ -1,39 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Back Office{% endblock %}
+{% block title %}Back Office
+{% endblock %}
 
 {% block body %}
 
-    <section class="py-5 mt-4">
-        <div class="container-fluid container-lg">
-        
-            {% if categories|length > 0 %}
-            <div class="col-8 mx-auto">
-                        <table class="table table-sm table-hover d-none d-sm-table">
-                <thead>
-                <tr>
-                    <th scope="col" class="text-center">#</th>
-                    <th scope="col" class="text-center">NOM</th>
-                </tr>
-                </thead>
-                {% for category in categories %}
-                    <tr>
-                        <td class="text-center">{{ category.id }}</td>
-                        <td class="text-center">{{ category.name }}</td>
-                        <td class="text-end">
-                            <a class="btn btn-warning" href="{{ path('app_update_category', {'id': category.id }) }}"><i class="bi bi-pencil-square"></i></a>
-                            <a class="btn btn-danger" href="{{ path('app_delete_category', {'id': category.id }) }}"><i class="bi bi-trash"></i></a>
-                            {# ajouter une intervention JS (preventDefault) pour s'assurer de la volonté de supprimer le produit #}
-                        </td>
-                    </tr>
-                {% endfor %}
+	<section class="py-5 mt-4">
+		<div class="container-fluid container-lg">
 
-                {% else %}
-                <p>Il n'y a aucune catégorie référencée.</p>
-                {% endif %}
+			{% if categories|length > 0 %}
+				<div class="col-8 mx-auto">
+					<table class="table table-sm table-hover d-none d-sm-table">
+						<thead>
+							<tr>
+								<th scope="col" class="text-center">#</th>
+								<th scope="col" class="text-center">NOM</th>
+							</tr>
+						</thead>
+						{% for category in categories %}
+							<tr>
+								<td class="text-center">{{ category.id }}</td>
+								<td class="text-center">
+									<a class="link" href="{{ path('app_category_show', {'id': category.id }) }}" alt="lien vers les produits de la catégorie">{{ category.name }}</a>
+								</td>
+								<td class="text-end">
+									<a class="btn btn-warning" href="{{ path('app_update_category', {'id': category.id }) }}" alt="bouton pour modifier la catégorie courante">
+										<i class="bi bi-pencil-square"></i>
+									</a>
+									<a class="btn btn-danger" href="{{ path('app_delete_category', {'id': category.id }) }}" alt="bouton pour supprimer la catégorie courante">
+										<i class="bi bi-trash"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
 
-            </table>
-        </div></div>
-    </section>
+					{% else %}
+						<p>Il n'y a aucune catégorie référencée.</p>
+					{% endif %}
+
+				</table>
+			</div>
+		</div>
+	</section>
 
 {% endblock %}

@@ -1,28 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Back Office{% endblock %}
+{% block title %}Back Office
+{% endblock %}
 
 {% block body %}
 
-    <section class="py-5 mt-4">
-        <div class="container">
-            <div class="p-4 p-lg-5 custom-card custom-card--gradient text-center position-relative">
-                <div class="m-4 m-lg-5">
-                    {% if not app.user %}
-                    <h1 class="display-5 fw-bold">Bienvenue !</h1>
-                    <p class="fs-4">Identifiez-vous pour vous connecter à votre back office.</p>
-                    <a class="btn btn-primary btn-lg" href="{{ path("app_login") }}">se connecter</a>
-                    {% else %}
-                    <p class="fs-4">Voulez-vous quitter votre session ?</p>
-                    <div class="d-flex justify-content-center">
-                        <a class="btn btn-danger btn-lg mx-2" href="{{ path("app_logout") }}">se déconnecter</a>
-                        <a class="btn btn-success btn-lg mx-2" href="{{ path("app_products") }}">Annuler</a>
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="p-4 p-lg-5 d-none d-md-block underlying-shape text-center"></div>
-            </div>
-        </div>
-    </section>
+	<section class="py-5 mt-4">
+		<div class="container">
+			<div class="p-4 p-lg-5 custom-card custom-card--gradient text-center position-relative">
+				<div class="m-4 m-lg-5">
+					{% if not app.user %}
+						<h1 class="display-5 fw-bold">Bienvenue !</h1>
+						<p class="fs-4">Identifiez-vous pour vous connecter à votre back office.</p>
+						<a class="btn btn-primary btn-lg" href="{{ path("app_login") }}" alt="bouton de connexion">se connecter</a>
+					{% else %}
+						<p class="fs-4">Voulez-vous quitter votre session ?</p>
+						<div class="d-flex justify-content-center">
+							<a class="btn btn-danger btn-lg mx-2" href="{{ path("app_logout") }}" alt="bouton de déconnexion">se déconnecter</a>
+							<a class="btn btn-success btn-lg mx-2" href="{{ path("app_products") }}" alt="bouton d'annulation">Annuler</a>
+						</div>
+					{% endif %}
+				</div>
+				<div class="p-4 p-lg-5 d-none d-md-block underlying-shape text-center"></div>
+			</div>
+		</div>
+	</section>
 
 {% endblock %}
