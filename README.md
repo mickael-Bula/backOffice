@@ -29,3 +29,9 @@ php bin/console doctrine:fixtures:load
 ```
 
 NOTE : l'installation de la BDD se fait avec l'user root par souci d'efficacité. Mais La bonne pratique impose de créer très vite un utilisateur dédié à cette base, que l'on renseignera ensuite dans le fichier .env.local.
+
+## Fonctionnalités de l'application
+
+L'utilisateur peut saisir de nouveaux produits pour les ajouter en base de données. Ces mêmes produits peuvent être mis à jour ou supprimer.
+De même, l'utilisateur peut ajouter, mettre à jour et supprimer des catégories.
+Depuis la liste des catégories, il est également possible de récupérer la liste des produits d'une catégorie en cliquant sur son nom.
