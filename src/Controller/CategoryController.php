@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\CategoryFormType;
-use App\Entity\{Category, Product};
+use App\Entity\Category;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,7 +39,6 @@ class CategoryController extends AbstractController
     public function show(
         CategoryRepository $categoryRepository,
         ProductRepository $productRepository,
-        Request $request,
         ?int $id
         ): Response
     {
