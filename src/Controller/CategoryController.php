@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\{Category, Product};
 use App\Form\CategoryFormType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\{Request, Response};
+use App\Entity\{Category, Product};
+use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/category")
@@ -17,21 +19,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class CategoryController extends AbstractController
 {
-    private $categoriesRepository;
-
-    public function __construct(ManagerRegistry $doctrine)
-    {
-        // on récupère le repository Category
-        $this->categoriesRepository = $doctrine->getRepository(Category::class);
-    }
-
     /**
      * @Route("/", name="app_categories")
      */
-    public function categories(): Response
+    public function categories(CategoryRepository $categoryRepository): Response
     {
         // on transmet à la vue les catégories
-        $categories = $this->categoriesRepository->findAll();
+        $categories = $categoryRepository->findAll();
 
         $title = "Liste des catégories";
 
@@ -42,14 +36,18 @@ class CategoryController extends AbstractController
      * @Route("/category/{id}", name="app_category_show", requirements={"id"="\d+"})
      */
 
-    public function show(ManagerRegistry $doctrine, Request $request, ?int $id): Response
+    public function show(
+        CategoryRepository $categoryRepository,
+        ProductRepository $productRepository,
+        Request $request,
+        ?int $id
+        ): Response
     {
         // récupération du nom de la catégorie courante
-        $category = $this->categoriesRepository->find($id);
+        $category = $categoryRepository->find($id);
         $title = "Produits de la catégorie {$category->getName()}";
 
         // récupération des produits de la catégorie courante
-        $productRepository = $doctrine->getRepository(Product::class);
         $products = $productRepository->findBy(["category" => $id]);
 
         return $this->render('home/products.html.twig', compact("products", "title"));
@@ -61,11 +59,16 @@ class CategoryController extends AbstractController
      * @Route("/update/{id?}", name="app_update_category", methods={"GET", "POST"}, requirements={"id"="\d+"})
      */
 
-    public function update(ManagerRegistry $doctrine, Request $request, ?int $id): Response
+    public function update(
+        EntityManagerInterface $entityManager,
+        CategoryRepository $categoryRepository,
+        Request $request,
+        ?int $id
+        ): Response
     {
         // si l'id est présent, on récupère la catégorie...
         if ($id !== null) {
-            $category = $this->categoriesRepository->find($id);
+            $category = $categoryRepository->find($id);
             $form_title = "Modifier une catégorie";
             // ...sinon on en crée une nouvelle
         } else {
@@ -77,7 +80,6 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $doctrine->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
 
@@ -94,10 +96,9 @@ class CategoryController extends AbstractController
      * @Route("/delete/{id}", name="app_delete_category", methods={"GET", "POST"}, requirements={"id"="\d+"})
      */
 
-    public function delete(ManagerRegistry $doctrine, int $id): Response
+    public function delete(CategoryRepository $categoryRepository, EntityManagerInterface $entityManager, int $id): Response
     {
-        $entityManager = $doctrine->getManager();
-        $category = $this->categoriesRepository->find($id);
+        $category = $categoryRepository->find($id);
         $entityManager->remove($category);
         $entityManager->flush();
 
