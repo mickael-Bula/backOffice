@@ -60,19 +60,17 @@ class CategoryController extends AbstractController
 
     public function update(
         EntityManagerInterface $entityManager,
-        CategoryRepository $categoryRepository,
         Request $request,
-        ?int $id
+        ?Category $id   // en injectant Category - lié à id - , le paramConverter fait $category = CategoryRepository->find($id)
         ): Response
     {
-        // si l'id est présent, on récupère la catégorie...
-        if ($id !== null) {
-            $category = $categoryRepository->find($id);
-            $form_title = "Modifier une catégorie";
-            // ...sinon on en crée une nouvelle
-        } else {
+        // si la catégorie n'est pas précisée, on en crée une nouvelle...
+        if (!$id) {
             $category = new Category();
-            $form_title = "Ajouter une catégorie";
+            $form_title = "Créer une catégorie";
+        } else {
+            $category = $id;    // je renomme $id en $category pour plus de clarté ($id est une instance de Category)
+            $form_title = "Modifier une catégorie";
         }
 
         $form = $this->createForm(CategoryFormType::class, $category);
