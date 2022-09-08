@@ -23,7 +23,7 @@
 
         <main>
             {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
+            <div class="text-center alert alert-success">{{ message }}</div>
             {% endfor %}
 
             {% block body %}{% endblock %}
