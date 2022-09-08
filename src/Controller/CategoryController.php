@@ -80,6 +80,9 @@ class CategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
+            // ajout d'un flashMessage signalant l'enregistrement
+            $this->addFlash('success', 'Modification sauvegardée !');
+
             // si le formulaire a été soumis on redirige vers la liste des produits
             return $this->redirectToRoute("app_categories");
         }

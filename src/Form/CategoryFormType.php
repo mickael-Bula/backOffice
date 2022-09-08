@@ -20,6 +20,9 @@ class CategoryFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Category::class,
+            'attr' => [
+                'novalidate' => 'novalidate'    // commenter cette ligne pour réactiver la validation html5
+            ]
         ]);
     }
 }
