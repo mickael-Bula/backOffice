@@ -49,6 +49,7 @@ class Product
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="veuillez renseigner une quantité")
      */
     private $quantity;
 
