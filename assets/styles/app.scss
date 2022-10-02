@@ -7,35 +7,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.link {
-    color: inherit;
-    text-decoration: none;
-}
-
-.custom-login-form {
-    background: linear-gradient(45deg, rgba(43,119,158,1) 0%, rgba(65,181,237,1) 90%, rgba(65,181,237,1) 100%);
-    border-radius: 10px;
-    color: white;
-    margin-top: 10%;
-    box-shadow: 0 5px 10px rgb(154, 160, 185), 0 15px 40px rgb(166, 173, 201);
-}
-
-.custom-btn {
-    box-sizing: content-box;
-    color: white;
-    background-color: #0c7ef0;
-    border: 0 solid deepskyblue;
-    transition: box-shadow .2s ease, border .2s ease, background-color .2s ease, color .2s ease;
-    box-shadow: inset 0 0 0 0 rgba(43,119,158,1), inset 0 0 0 2px deepskyblue, 0 0 0 0 rgba(43,119,158,1);
-
-    &:hover {
-        box-shadow: inset 0 0 0 4px rgba(43,119,158,1), inset 0 0 0 6px deepskyblue, 0 0 0 0 rgba(43,119,158,1);
-        background-color: #0d6efd;
-        color: white;
-        border-radius: 5px;
-    }
-}
-
 .wrap-icon {
     border-radius: 2em;
     transition: background-color 0.3s;
@@ -66,5 +37,33 @@ body {
 
     & li i:hover {
         transform: scale(1.3);
+    }
+}
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+.logo {
+    width: 185px;
+}
+    
+@media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
     }
 }
