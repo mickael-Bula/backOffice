@@ -32,8 +32,6 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_ADMIN")
-     *
      * @Route("/products", name="app_products")
      */
      public function products(): Response
