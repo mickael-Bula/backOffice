@@ -5,9 +5,11 @@
 		<div class="col-sm-6 mx-auto mt-4">
 			<h1 class="display-6 display-5-md">{{ form_title }}</h1>
 			{{ form_start(form) }}
-			{{ form_widget(form) }}
-			<button type="submit" class="btn btn-success">Valider</button>
-			<a href="{{ path("app_categories") }}" class="btn btn-warning" alt="bouton d'annulation">Annuler</a>
+{# ici je rend individuellement chaque champ avec form_row() pour qu'il soit affiché avant les boutons #}
+{# le message d'erreur affiché à la soumission d'un champ vide est déclaré dans l'entité Category (validator @Assert) #}
+			{{ form_row(form.name) }}
+			<button type="submit" class="mt-1 btn btn-success">Valider</button>
+			<a href="{{ path("app_categories") }}" class="mt-1 btn btn-warning" alt="bouton d'annulation">Annuler</a>
 			{{ form_end(form) }}
 
 		</div>

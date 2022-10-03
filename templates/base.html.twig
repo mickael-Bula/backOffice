@@ -22,7 +22,11 @@
         {% include 'header.html.twig' %}
 
         <main>
-        {% block body %}{% endblock %}
+            {% for message in app.flashes('success') %}
+            <div class="text-center alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            {% block body %}{% endblock %}
         </main>
 
         {% include 'footer.html.twig' %}

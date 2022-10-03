@@ -20,13 +20,13 @@ class Product
     private $id;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="veuillez nommer le produit")
      * @ORM\Column(type="string", length="100")
      */
     private $name;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="la référence est nécessaire")
      * @ORM\Column(type="string", length="100")
      */
     private $reference;
@@ -49,6 +49,7 @@ class Product
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="veuillez renseigner une quantité")
      */
     private $quantity;
 

@@ -61,6 +61,9 @@ class ProductFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Product::class,
+            'attr' => [
+                'novalidate' => 'novalidate'    // commenter cette ligne pour réactiver la validation html5
+            ]
         ]);
     }
 }
